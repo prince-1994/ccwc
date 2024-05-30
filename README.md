@@ -28,14 +28,14 @@ bun build-exe
 To use:
 
 ```bash
-$ echo 'hello' | .exe/ccwc
-6       6       1       1
-$ ./exe/ccwc tests/test-big.txt
-342190  339292  58164   7145     tests/test-big.txt
+$ echo 'hello' | ./exe/ccwc
+    1       1       6
 $ cat tests/test-big.txt | ./exe/ccwc
-342190  339292  58164   7145     tests/test-big.txt
+    7145   58164  342190
+$ ./exe/ccwc tests/test-big.txt
+    7145   58164  342190 tests/test-big.txt
 $ ./exe/ccwc -c tests/test-big.txt
-342190   tests/test-big.txt
+    342190      tests/test-big.txt
 ```
 
 The following options are supported:

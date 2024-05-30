@@ -31,7 +31,7 @@ export function printResult(result: (number | null)[], path: string = "") {
         result
             .map((x) => x!.toString().padStart(7))
             .join("\t")
-            .padStart(20) +
+            .padStart(10) +
             "\t" +
             path
     );
