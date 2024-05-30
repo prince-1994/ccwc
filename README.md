@@ -19,7 +19,7 @@ To install dependencies:
 bun i
 ```
 
-To compile:
+To build an executable:
 
 ```bash
 bun build-exe
@@ -29,7 +29,7 @@ To use:
 
 ```bash
 $ echo 'hello' | ./exe/ccwc
-    1       1       6
+       1       1       6
 $ cat tests/test-big.txt | ./exe/ccwc
     7145   58164  342190
 $ ./exe/ccwc tests/test-big.txt
