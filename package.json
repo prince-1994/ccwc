@@ -1,0 +1,19 @@
+{
+  "name": "ccwc",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "bin": {
+    "ccwc": "./src/index.ts"
+  },
+  "scripts": {
+    "build-src": "bun build ./src/index.ts --minify --outdir ./dist",
+    "build-exe": "bun build ./src/index.ts --minify --compile --outfile ./exe/ccwc",
+    "cleanup": "rm .*.bun-build",
+    "cleanup-build": "rm .*.bun-build && rm -rf ./dist "
+  }
+}
