@@ -1,27 +1,36 @@
-import { getCounts, wc } from "../src/wc";
+import { wc } from "../src/wc";
 import { expect, test } from "bun:test";
 
-test("getCounts for small text",async () => {
-    const input = Buffer.from(await Bun.file("tests/test-small.txt").arrayBuffer());
-    const result = getCounts(input, true, true, true, true);
-    expect(result).toEqual([345, 345, 58, 11]);
-})
+test("wc for small text", async () => {
+    const file = "tests/test-small.txt";
+    const results = await wc({ c: true, w: true, l: true, m: true }, [file]);
+    expect(results).toEqual([{ result: [11, 58, 345, 345], path: file }]);
+});
 
-test("getCounts for big text",async () => {
-    const input = Buffer.from(await Bun.file("tests/test-big.txt").arrayBuffer());
-    const result = getCounts(input, true, true, true, true);
-    expect(result).toEqual([342190,339292, 58164, 7145]);
-})
+test("wc for big text", async () => {
+    const file = "tests/test-big.txt";
+    const results = await wc({ c: true, w: true, l: true, m: true }, [file]);
+    expect(results).toEqual([
+        { result: [7145, 58164, 339292, 342190], path: file },
+    ]);
+});
 
-test("getCounts for empty text",async () => {
-    const input = Buffer.from(await Bun.file("tests/test-empty.txt").arrayBuffer());
-    const result = getCounts(input, true, true, true, true);
-    expect(result).toEqual([0,0,0,0]);
-})
+test("wc for empty text", async () => {
+    const file = "tests/test-empty.txt";
+    const results = await wc({ c: true, w: true, l: true, m: true }, [file]);
+    expect(results).toEqual([{ result: [0, 0, 0, 0], path: file }]);
+});
 
-test("wc",async () => {
-    wc({}, ["tests/test-big.txt"]);
-    wc({}, ["tests/test-small.txt"]);
-    wc({}, ["tests/test-empty.txt"]);
-    wc({}, ["tests/test-not-exist.txt"]);
-})
+test("wc for all texts", async () => {
+    const file = "tests/test-small.txt tests/test-big.txt tests/test-empty.txt";
+    const results = await wc(
+        { c: true, w: true, l: true, m: true },
+        file.split(" ")
+    );
+    expect(results).toEqual([
+        { result: [7145, 58164, 339292, 342190], path: "tests/test-big.txt" },
+        { result: [0, 0, 0, 0], path: "tests/test-empty.txt" },
+        { result: [11, 58, 345, 345], path: "tests/test-small.txt" },
+        { result: [7156, 58222, 339637, 342535], path: "total" },
+    ]);
+});

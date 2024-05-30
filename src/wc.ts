@@ -80,5 +80,5 @@ export async function wc(values: any, positionals: string[]) {
         ).filter((x) => x != null && x != undefined);
         finalresults.push({ path: "", result });
     }
-    return finalresults;
+    return finalresults.sort((a, b) => a.path.localeCompare(b.path));
 }
